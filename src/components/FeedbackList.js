@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaTimes } from 'react-icons/fa';
+import { FaEdit } from 'react-icons/fa';
+import Feedbackcontext from '../context/Feedbackcontext';
 
-function FeedbackList({ feedback }) {
+function FeedbackList() {
+  const { feedback, deleteFeedback } = useContext(Feedbackcontext);
   if (feedback.length === 0) {
     return <p>No Feedback to show</p>;
   }
-  const handleClick = () => {
-    console.log('close');
-  };
+  const handleClick = () => {};
   let averageRate =
     feedback.reduce((a, c) => {
       return a + c.rating;
@@ -22,8 +23,11 @@ function FeedbackList({ feedback }) {
         {feedback.map((item) => (
           <div className="card" key={item.id}>
             <div className="num-display">{item.rating}</div>
-            <button onClick={handleClick} className="close">
+            <button onClick={() => deleteFeedback(item.id)} className="close">
               <FaTimes color="purple" />
+            </button>
+            <button onClick={handleClick} className="edit">
+              <FaEdit color="purple" />
             </button>
             <div className="text-display">{item.text}</div>
           </div>
