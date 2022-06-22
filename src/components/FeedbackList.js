@@ -4,11 +4,11 @@ import { FaEdit } from 'react-icons/fa';
 import Feedbackcontext from '../context/Feedbackcontext';
 
 function FeedbackList() {
-  const { feedback, deleteFeedback } = useContext(Feedbackcontext);
+  const { feedback, deleteFeedback, editFeedback } =
+    useContext(Feedbackcontext);
   if (feedback.length === 0) {
     return <p>No Feedback to show</p>;
   }
-  const handleClick = () => {};
   let averageRate =
     feedback.reduce((a, c) => {
       return a + c.rating;
@@ -26,7 +26,7 @@ function FeedbackList() {
             <button onClick={() => deleteFeedback(item.id)} className="close">
               <FaTimes color="purple" />
             </button>
-            <button onClick={handleClick} className="edit">
+            <button onClick={() => editFeedback(item)} className="edit">
               <FaEdit color="purple" />
             </button>
             <div className="text-display">{item.text}</div>
